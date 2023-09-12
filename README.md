@@ -2,7 +2,9 @@
 
 Some scripts that help you automatic your research process!
 
-## ``chase_arxiv.py``
+simply use python -m xxx to call these scripts.
+
+## ``chase_arxiv``
 This srcipt can help fetch papers from Arxiv recent week.
 
 You can specify your interested subareas and key words to filter the titles.
@@ -25,7 +27,7 @@ Titles that hit any one of rules in ``key_words`` will be chosen.
 
 ``HEADER`` is copy from your own browser.
 
-## ``find_citation.py``
+## ``find_citation``
 This script will help extract paper titles from json file export from DBLP.org, it will fetch the citation of each paper.
 Then sort them based on citations and out put title and citations.
 
@@ -37,5 +39,8 @@ USE_DRIVER = True
 ```
 You need to specify your own header from your web browser.
 If ``USE_DRIVER`` is set ``True``, you need to install selenium to fetch information from google scholar. 
+
+## ``fetch_from_dblp``
+The json export can only export 1000 items at most, sometimes you may need more than that, so you can use this script to fetch all papers from the ``TARGET_LINK``.
 
 If you have other cool ideas, welcome to raise pull request~

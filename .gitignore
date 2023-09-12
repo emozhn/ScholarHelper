@@ -1,2 +1,4 @@
 myheader.txt
+cache.pkl
 /results/
+__pycache__

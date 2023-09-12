@@ -5,13 +5,13 @@ from tqdm import tqdm
 from selenium import webdriver
 import pickle
 import os
+from utils import get_header
 
 LINK_PREFIX = "https://scholar.google.com/scholar?q="
 # PATTERN = re.compile(r'Cited by \d+')
 PATTERN = re.compile(r'被引用次数：\d+')
-HEADER = "Your own header"
+HEADER = get_header()
 USE_DRIVER = True
-
 
 if USE_DRIVER:
     driver = webdriver.Chrome()
@@ -53,11 +53,14 @@ def get_citation(titles: list[str]):
             try:
                 html = get_html(url)
                 m = PATTERN.search(html)
-                to_be_parse = m.group(0)
-                k = len(to_be_parse) - 1
-                while k >= 0 and to_be_parse[k] in "0123456789":
-                    k -= 1
-                citation = int(to_be_parse[k + 1:])
+                if m:
+                    to_be_parse = m.group(0)
+                    k = len(to_be_parse) - 1
+                    while k >= 0 and to_be_parse[k] in "0123456789":
+                        k -= 1
+                    citation = int(to_be_parse[k + 1:])
+                else:
+                    citation = 0
             except Exception as e:
                 print(e)
                 try:
@@ -65,14 +68,16 @@ def get_citation(titles: list[str]):
                     input()
                     html = get_html(url)
                     m = PATTERN.search(html)
-                    to_be_parse = m.group(0)
-                    k = len(to_be_parse) - 1
-                    while k >= 0 and to_be_parse[k] in "0123456789":
-                        k -= 1
-                    citation = int(to_be_parse[k + 1:])
+                    if m:
+                        to_be_parse = m.group(0)
+                        k = len(to_be_parse) - 1
+                        while k >= 0 and to_be_parse[k] in "0123456789":
+                            k -= 1
+                        citation = int(to_be_parse[k + 1:])
+                    else:
+                        citation = 0
                 except Exception:
                     citation = -1
-            print(citation)
             name_citation_dict[title] = citation
     except KeyboardInterrupt:
         print(k)
@@ -82,13 +87,21 @@ def get_citation(titles: list[str]):
     return name_citation_pair
 
     
-if __name__ == "__main__":
-    titles_all = []
-    for file in ["iclr13.json", "iclr14.json", "iclr15.json", "iclr16.json", "iclr17.json", "iclr18.json", "iclr19.json"]:
-        titles = parse_json("jsons/" + file)
-        titles_all.extend(titles)
-    title_citations = get_citation(titles_all)
-    title_citations.sort(key=lambda x: -x[1])
-    print("+++++++++++++")
-    for title, citation in title_citations:
-        print(title, citation)
+
+titles_all = []
+# for file in ["iclr13.json", "iclr14.json", "iclr15.json", "iclr16.json", "iclr17.json", "iclr18.json", "iclr19.json"]:
+#     titles = parse_json("jsons/" + file)
+#     titles_all.extend(titles)
+
+for file in ["icml15.txt", "icml16.txt", "icml17.txt", "icml18.txt", "icml19.txt", "icml20.txt"]:
+    with open("lists/" + file, "r") as f:
+        lines = f.readlines()
+        while lines:
+            titles_all.extend([line.strip() for line in lines])
+            lines = f.readlines()
+
+title_citations = get_citation(titles_all)
+title_citations.sort(key=lambda x: -x[1])
+print("+++++++++++++")
+for title, citation in title_citations:
+    print(title, citation)
