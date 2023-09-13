@@ -99,7 +99,8 @@ for file in ["icml15.txt", "icml16.txt", "icml17.txt", "icml18.txt", "icml19.txt
         while lines:
             titles_all.extend([line.strip() for line in lines])
             lines = f.readlines()
-
+for title in titles_all:
+    print(title)
 title_citations = get_citation(titles_all)
 title_citations.sort(key=lambda x: -x[1])
 print("+++++++++++++")
