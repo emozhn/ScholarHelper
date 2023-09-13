@@ -2,3 +2,4 @@ myheader.txt
 cache.pkl
 /results/
 __pycache__
+.DS_store
