@@ -1,3 +1,9 @@
+# THIS FILE IS PART OF ScholarHelper (https://github.com/sdycodes/ScholarHelper)
+# find_citation.py - used for get citation of a paper
+# THIS PROGRAM IS LICENSED GPL-v3.0
+# Copyright (c) 2023-2033 Dingyuan Shi (sdycodes@Github)
+
+
 import urllib.request
 import re
 import json

@@ -1,3 +1,9 @@
+# THIS FILE IS PART OF ScholarHelper (https://github.com/sdycodes/ScholarHelper)
+# chase_arxiv.py - used for fetching papers from arxiv.org
+# THIS PROGRAM IS LICENSED GPL-v3.0
+# Copyright (c) 2023-2033 Dingyuan Shi (sdycodes@Github)
+
+
 import urllib.request
 import pickle
 from lxml import etree

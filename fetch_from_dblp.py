@@ -1,3 +1,8 @@
+# THIS FILE IS PART OF ScholarHelper (https://github.com/sdycodes/ScholarHelper)
+# fetch_from_dblp.py - used for fetching paper titles from dblp
+# THIS PROGRAM IS LICENSED GPL-v3.0
+# Copyright (c) 2023-2033 Dingyuan Shi (sdycodes@Github)
+
 from utils import get_header
 import urllib.request
 from lxml import etree
